@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace onlinebookstore
+{
+    public partial class Form2 : Form
+    {
+        OleDbCommand cmd = null;
+        OleDbConnection cn = null;
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+        private void btncancl_Click(object sender, EventArgs e)
+        {
+            Form1 f1 = new Form1();
+            f1.Show();
+            this.Hide();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            cn = new OleDbConnection();
+            cn.Close();
+            cn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\smita\\Documents\\userreg.accdb";
+            cn.Open();
+        }
+
+        private void btnreg1_Click(object sender, EventArgs e)
+        {
+            cmd = new OleDbCommand();
+            cmd.Connection = cn;
+            cmd.CommandText = "Insert into userreg values('" + tbusrnm.Text + "','" + tbpswd.Text + "','" + tbcpswd.Text + "','" + tbfnm.Text + "','" + tblnm.Text + "','" + tbemail.Text + "','" + tbadd.Text + "','" + tbfon.Text + "','" + tbcctype.Text + "','"+tbccno.Text+ "',)";
+            cmd.ExecuteNonQuery();
+            tbusrnm.Text = "";
+            tbpswd.Text = "";
+            tbcpswd.Text = "";
+            tbfnm.Text = "";
+            tblnm.Text = "";
+            tbemail.Text = "";
+            tbadd.Text = "";
+            tbfon.Text = "";
+            tbcctype.Text = "";
+            tbccno.Text = "";
+        }
+
+    }
+}
